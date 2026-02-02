@@ -9,14 +9,13 @@ module.exports = {
     extend: {
       colors: {
         scout: {
-          dark: "#050A14",     // Deep Rich Black/Blue
-          surface: "#0F172A",  // Slate 900
-          neon: "#22D3EE",     // Cyan 400 (Electric Blue)
-          accent: "#8B5CF6",   // Violet 500
-          success: "#10B981",  // Emerald 500
-          text: "#F8FAFC",     // Slate 50
-          muted: "#64748B",    // Slate 500
-          // Add transparency variants if needed, or use tailwind's opacity modifiers
+          dark: "#0B0E14",     // Elegant Black/Navy
+          surface: "#151B25",  // Slate Dark
+          gold: "#D4AF37",     // FIFA Agent Gold
+          blue: "#1E40AF",     // Royal Blue
+          silver: "#94A3B8",   // Metallic Silver
+          text: "#F8FAFC",     // Pure White
+          paper: "#FFFFFF",    // Explicit White for cards
         },
       },
       fontFamily: {
