@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-scout-dark text-scout-text antialiased;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%), 
+      radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08), transparent 25%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer components {
+  /* Glass Card Effect */
+  .glass-card {
+    @apply bg-scout-surface/80 backdrop-blur-lg border border-white/10 shadow-xl rounded-2xl;
+  }
+  
+  /* Input Fields */
+  .input-premium {
+    @apply w-full p-4 bg-scout-dark/50 border border-white/10 rounded-xl text-white placeholder-scout-muted 
+    focus:border-scout-neon focus:ring-1 focus:ring-scout-neon outline-none transition-all duration-300;
+  }
+  
+  /* Primary Button */
+  .btn-neon {
+    @apply relative overflow-hidden bg-scout-neon text-scout-dark font-bold py-4 px-8 rounded-xl 
+    hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] active:scale-95 transition-all duration-300 
+    uppercase tracking-wider font-heading;
+  }
+
+  /* Portfolio Specifics */
+  .portfolio-card {
+    @apply bg-white text-black border-4 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] p-8;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.loader {
+  border-top-color: #38BDF8;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
