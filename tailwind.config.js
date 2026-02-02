@@ -9,13 +9,14 @@ module.exports = {
     extend: {
       colors: {
         scout: {
-          dark: "#0F172A",     // Slate 900
-          surface: "#1E293B",  // Slate 800
-          neon: "#38BDF8",     // Sky 400
-          accent: "#818CF8",   // Indigo 400
-          success: "#34D399",  // Emerald 400
-          text: "#F1F5F9",     // Slate 100
-          muted: "#94A3B8",    // Slate 400
+          dark: "#050A14",     // Deep Rich Black/Blue
+          surface: "#0F172A",  // Slate 900
+          neon: "#22D3EE",     // Cyan 400 (Electric Blue)
+          accent: "#8B5CF6",   // Violet 500
+          success: "#10B981",  // Emerald 500
+          text: "#F8FAFC",     // Slate 50
+          muted: "#64748B",    // Slate 500
+          // Add transparency variants if needed, or use tailwind's opacity modifiers
         },
       },
       fontFamily: {

@@ -44,7 +44,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-12">
+    <div className="min-h-screen p-6 md:p-12 bg-grid-pattern relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-scout-accent/10 blur-[120px] rounded-full mix-blend-screen animate-float-slow"></div>
+      </div>
       <div className="max-w-2xl mx-auto glass-card p-8 md:p-10 card-glow">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white text-center">
           VOTRE <span className="text-scout-neon">PROFIL COACH</span>

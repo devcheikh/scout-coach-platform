@@ -15,11 +15,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-grid-pattern">
       {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-scout-neon/20 blur-[120px] rounded-full mix-blend-screen animate-float"></div>
-        <div className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-scout-accent/20 blur-[120px] rounded-full mix-blend-screen animate-float" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-scout-neon/20 blur-[100px] rounded-full mix-blend-screen animate-float-slow"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-scout-accent/20 blur-[100px] rounded-full mix-blend-screen animate-float-delayed"></div>
       </div>
 
       <div className="glass-card p-12 max-w-sm w-full text-center border-t border-white/20">
