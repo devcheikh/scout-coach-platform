@@ -2,18 +2,34 @@ import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/router";
 import Head from 'next/head';
+import { useState } from "react";
+
 
 export default function Home() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
     try {
       await signInWithPopup(auth, googleProvider);
       router.push("/dashboard");
     } catch (err) {
       console.error("Erreur de connexion", err);
+      let message = "Une erreur est survenue lors de la connexion.";
+      if (err.code === 'auth/popup-closed-by-user') {
+        message = "La fenêtre de connexion a été fermée avant la fin.";
+      } else if (err.code === 'auth/network-request-failed') {
+        message = "Problème de connexion réseau.";
+      }
+      setError(message);
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden bg-scout-dark">
@@ -69,24 +85,38 @@ export default function Home() {
             Connectez-vous pour accéder à votre tableau de bord exclusif et gérer votre carrière professionnelle.
           </p>
 
+          {error && (
+            <div className="mb-6 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm animate-pulse">
+              {error}
+            </div>
+          )}
+
           {/* Action Button */}
           <div className="animation-delay-200 animate-fade-in-up">
             <button
               onClick={handleLogin}
-              className="btn-gold w-full flex items-center justify-center gap-4 group"
+              disabled={loading}
+              className={`btn-gold w-full flex items-center justify-center gap-4 group ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
               <div className="bg-white p-1.5 rounded-full transition-transform group-hover:scale-110 flex items-center justify-center">
                 {/* Inline Google SVG for perfect sizing and no loading issues */}
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" className="border-0">
-                  <path d="M17.64 9.2045c0-.63818-.05727-1.25182-.16364-1.84091H9v3.48136h4.84364c-.20864 1.125-.84273 2.07818-1.79591 2.71636v2.25818h2.90864C16.65818 14.2425 17.64 11.885 17.64 9.2045z" fill="#4285F4" />
-                  <path d="M9 18c2.43 0 4.46727-.80591 5.95636-2.18045l-2.90864-2.25818c-.80591.54-1.83682.85909-3.04773.85909-2.34409 0-4.32818-1.58318-5.03591-3.71045H.95864v2.33182C2.43818 15.98318 5.48182 18 9 18z" fill="#34A853" />
-                  <path d="M3.96409 10.71c-.17727-.53182-.27955-1.09841-.27955-1.71s.10227-1.17818.27955-1.71V4.95818H.95864C.34773 6.17318 0 7.54773 0 9s.34773 2.82682.95864 4.04182l3.00545-2.33182z" fill="#FBBC05" />
-                  <path d="M9 3.57955c1.32136 0 2.50773.45409 3.44045 1.34591l2.58136-2.58136C13.46318.89182 11.42591 0 9 0 5.48182 0 2.43818 2.01682.95864 4.95818L3.96409 7.275C4.67182 5.14773 6.65591 3.57955 9 3.57955z" fill="#EA4335" />
-                </svg>
+                {loading ? (
+                  <div className="w-[18px] h-[18px] border-2 border-scout-gold border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" className="border-0">
+                    <path d="M17.64 9.2045c0-.63818-.05727-1.25182-.16364-1.84091H9v3.48136h4.84364c-.20864 1.125-.84273 2.07818-1.79591 2.71636v2.25818h2.90864C16.65818 14.2425 17.64 11.885 17.64 9.2045z" fill="#4285F4" />
+                    <path d="M9 18c2.43 0 4.46727-.80591 5.95636-2.18045l-2.90864-2.25818c-.80591.54-1.83682.85909-3.04773.85909-2.34409 0-4.32818-1.58318-5.03591-3.71045H.95864v2.33182C2.43818 15.98318 5.48182 18 9 18z" fill="#34A853" />
+                    <path d="M3.96409 10.71c-.17727-.53182-.27955-1.09841-.27955-1.71s.10227-1.17818.27955-1.71V4.95818H.95864C.34773 6.17318 0 7.54773 0 9s.34773 2.82682.95864 4.04182l3.00545-2.33182z" fill="#FBBC05" />
+                    <path d="M9 3.57955c1.32136 0 2.50773.45409 3.44045 1.34591l2.58136-2.58136C13.46318.89182 11.42591 0 9 0 5.48182 0 2.43818 2.01682.95864 4.95818L3.96409 7.275C4.67182 5.14773 6.65591 3.57955 9 3.57955z" fill="#EA4335" />
+                  </svg>
+                )}
               </div>
-              <span className="tracking-[0.15em] font-medium text-sm">CONTINUER AVEC GOOGLE</span>
+              <span className="tracking-[0.15em] font-medium text-sm">
+                {loading ? 'CHARGEMENT...' : 'CONTINUER AVEC GOOGLE'}
+              </span>
             </button>
           </div>
+
 
           {/* Footer / Trust Indicators */}
           <div className="mt-10 pt-6 border-t border-white/5 flex flex-col gap-2">
