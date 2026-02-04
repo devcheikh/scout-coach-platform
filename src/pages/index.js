@@ -1,8 +1,8 @@
 import { auth, googleProvider } from "../config/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import Head from 'next/head';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function Home() {
@@ -10,21 +10,36 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth State Changed:", user ? "User Logged In" : "No User");
+      if (user) {
+        router.push("/dashboard");
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
+
   const handleLogin = async () => {
+    console.log("Login button clicked");
     setLoading(true);
     setError(null);
     try {
-      await signInWithPopup(auth, googleProvider);
+      console.log("Starting signInWithPopup...");
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log("SignIn Success:", result.user.email);
       router.push("/dashboard");
     } catch (err) {
-      console.error("Erreur de connexion", err);
+      console.error("Detailed Login Error:", err);
       let message = "Une erreur est survenue lors de la connexion.";
       if (err.code === 'auth/popup-closed-by-user') {
         message = "La fenêtre de connexion a été fermée avant la fin.";
       } else if (err.code === 'auth/network-request-failed') {
         message = "Problème de connexion réseau.";
+      } else if (err.code === 'auth/operation-not-allowed') {
+        message = "L'authentification Google n'est pas activée dans Firebase.";
       }
-      setError(message);
+      setError(message + " (" + err.code + ")");
     } finally {
       setLoading(false);
     }
