@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+@theme {
+  --color-scout-dark: #0B0E14;
+  --color-scout-surface: #151B25;
+  --color-scout-gold: #D4AF37;
+  --color-scout-text: #F8FAFC;
+}
+
+
 
 @layer base {
   body {
