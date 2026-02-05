@@ -21,16 +21,16 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        router.push('/');
-      } else {
-        setUser(currentUser);
-        setLoading(false);
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
+    // DEV MODE: Mock user immediately
+    const mockUser = {
+      uid: "test-user-id",
+      email: "test@example.com",
+      displayName: "Coach Test",
+      photoURL: null
+    };
+    setUser(mockUser);
+    setLoading(false);
+  }, []);
 
   if (loading) {
     return (
@@ -43,7 +43,7 @@ export default function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = auth.currentUser;
+    // const user = auth.currentUser; // Removed for Dev Mode
 
     let photoURL = user.photoURL;
 

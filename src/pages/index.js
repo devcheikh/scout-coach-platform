@@ -21,35 +21,13 @@ export default function Home() {
   }, [router]);
 
   const handleLogin = async () => {
-    console.log("Login button clicked");
+    console.log("Login button clicked (Dev Mode)");
     setLoading(true);
-    setError(null);
-    try {
-      console.log("Starting signInWithPopup with resolver...");
-      // Using browserPopupRedirectResolver can fix "auth/invalid-auth-event" or "requested action is invalid"
-      const result = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
-      console.log("SignIn Success:", result.user.email);
-      router.push("/dashboard");
-    } catch (err) {
-      console.error("Detailed Login Error:", err);
-      let message = "Une erreur est survenue lors de la connexion.";
-
-      if (err.code === 'auth/popup-closed-by-user') {
-        message = "La fenêtre de connexion a été fermée avant la fin.";
-      } else if (err.code === 'auth/network-request-failed') {
-        message = "Problème de connexion réseau.";
-      } else if (err.code === 'auth/operation-not-allowed') {
-        message = "L'authentification Google n'est pas activée dans Firebase.";
-      } else if (err.code === 'auth/unauthorized-domain') {
-        message = "Ce domaine n'est pas autorisé dans la console Firebase.";
-      } else if (err.code === 'auth/internal-error') {
-        message = "Erreur interne Firebase. Vérifiez la console.";
-      }
-
-      setError(message + " (" + err.code + ")");
-    } finally {
+    // Simulate a short delay
+    setTimeout(() => {
       setLoading(false);
-    }
+      router.push("/dashboard");
+    }, 500);
   };
 
 
@@ -134,7 +112,7 @@ export default function Home() {
                 )}
               </div>
               <span className="tracking-[0.15em] font-medium text-sm">
-                {loading ? 'CHARGEMENT...' : 'CONTINUER AVEC GOOGLE'}
+                {loading ? 'CHARGEMENT...' : 'ENTRER (DEV MODE)'}
               </span>
             </button>
           </div>
