@@ -65,11 +65,11 @@
 
   /* Gold Button Premium */
   .btn-gold {
-    @apply relative overflow-hidden bg-gradient-to-r from-[#C5A028] via-[#D4AF37] to-[#B8860B] text-white font-bold py-4 px-10 transition-all duration-300 uppercase tracking-[0.2em] text-xs shadow-[0_4px_14px_0_rgba(212, 175, 55, 0.39)] border border-[#F4D03F]/30;
+    @apply relative overflow-hidden bg-gradient-to-r from-[#C5A028] via-[#D4AF37] to-[#B8860B] text-white font-bold py-4 px-10 transition-all duration-300 uppercase tracking-[0.2em] text-xs shadow-[0_4px_14px_0_#D4AF3763] border border-[#F4D03F]/30;
   }
 
   .btn-gold:hover {
-    @apply transform -translate-y-1 shadow-[0_6px_20px_rgba(212, 175, 55, 0.23)];
+    @apply transform -translate-y-1 shadow-[0_6px_20px_#D4AF373B];
     background-size: 200% auto;
     animation: shine 3s linear infinite;
   }
