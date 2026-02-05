@@ -43,26 +43,39 @@ export default function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // const user = auth.currentUser; // Removed for Dev Mode
 
-    let photoURL = user.photoURL;
+    try {
+      console.log("Submitting form with mock user:", user);
 
-    if (image) {
-      const storageRef = ref(storage, `coaches/${user.uid}/profile.jpg`);
-      await uploadBytes(storageRef, image);
-      photoURL = await getDownloadURL(storageRef);
+      // const user = auth.currentUser; // Removed for Dev Mode
+
+      let photoURL = user.photoURL;
+
+      if (image) {
+        console.log("Attempting upload to:", `coaches/${user.uid}/profile.jpg`);
+        const storageRef = ref(storage, `coaches/${user.uid}/profile.jpg`);
+        await uploadBytes(storageRef, image);
+        console.log("Upload successful");
+        photoURL = await getDownloadURL(storageRef);
+      }
+
+      console.log("Saving doc to Firestore:", user.uid);
+      await setDoc(doc(db, "coaches", user.uid), {
+        ...form,
+        uid: user.uid,
+        photo: photoURL,
+        email: user.email,
+        updatedAt: new Date().toISOString()
+      });
+      console.log("Doc saved successfully");
+
+      router.push(`/portfolio/${user.uid}`);
+    } catch (error) {
+      console.error("Error creating portfolio:", error);
+      alert("Une erreur est survenue: " + error.message + "\n\n(Vérifiez les règles de sécurité Firebase si vous êtes en mode Dev)");
+    } finally {
+      setLoading(false);
     }
-
-    await setDoc(doc(db, "coaches", user.uid), {
-      ...form,
-      uid: user.uid,
-      photo: photoURL,
-      email: user.email,
-      updatedAt: new Date().toISOString()
-    });
-
-    setLoading(false);
-    router.push(`/portfolio/${user.uid}`);
   };
 
   return (
