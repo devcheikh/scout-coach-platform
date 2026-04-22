@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const { data, error } = await supabase
                 .from('coaches')
                 .select('*')
+                .eq('status', 'published')
                 .order('updated_at', { ascending: false });
 
             if (error) throw error;

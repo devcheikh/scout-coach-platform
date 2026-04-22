@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin - Scout Coach</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .admin-container { padding-bottom: 40px; }
+    .admin-table-container {
+      background: var(--color-scout-surface);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 30px;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; padding: 15px 20px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--color-scout-silver); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    td {
+      padding: 15px 20px; font-size: 13px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      color: white;
+    }
+    .admin-row:hover { background: rgba(255, 255, 255, 0.02); }
+    .talent-thumb { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
+    
+    .btn-status {
+      padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800;
+      cursor: pointer; border: none; text-transform: uppercase; transition: all 0.2s;
+    }
+    .btn-approve { background: rgba(37, 211, 102, 0.1); color: #25D366; }
+    .btn-hide { background: rgba(212, 175, 55, 0.1); color: var(--color-scout-gold); }
+    .btn-delete { background: rgba(255, 68, 68, 0.1); color: #ff4444; margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+  <div id="loading-screen" style="position:fixed; inset:0; background:var(--color-scout-dark); z-index:2000; display:flex; align-items:center; justify-content:center;">
+    <div class="animate-pulse" style="width: 40px; height: 40px; border: 3px solid var(--color-scout-gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+  </div>
+
+  <div class="main-content with-sidebar">
+    <div class="container admin-container animate-fade-in">
+      <header>
+        <h1 style="font-size: 1.75rem;">Panel <span class="text-gold-gradient">Administration</span></h1>
+        <p style="font-size: 14px; color: var(--color-scout-silver); margin-top: 5px;">Modération et validation des dossiers coachs.</p>
+      </header>
+
+      <div class="admin-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Talent</th>
+              <th>Propriétaire</th>
+              <th>Statut</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-talents-body">
+            <!-- Rows injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initNavigation } from './js/navigation.js';
+    initNavigation('admin');
+  </script>
+  <script type="module" src="js/admin.js"></script>
+  <script>
+    window.addEventListener('load', () => { if(window.lucide) lucide.createIcons(); });
+  </script>
+</body>
+</html>

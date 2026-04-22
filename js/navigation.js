@@ -13,7 +13,10 @@ export const initNavigation = (activePage) => {
             <i data-lucide="search"></i> Explorer
           </a>
           <a href="dashboard.html" class="sidebar-item ${activePage === 'profil' ? 'active' : ''}">
-            <i data-lucide="user"></i> Mon Profil
+            <i data-lucide="user"></i> Mes Talents
+          </a>
+          <a href="admin.html" class="sidebar-item ${activePage === 'admin' ? 'active' : ''}">
+            <i data-lucide="shield-check"></i> Admin
           </a>
           <a href="index.html" class="sidebar-item">
             <i data-lucide="home"></i> Accueil
@@ -40,7 +43,6 @@ export const initNavigation = (activePage) => {
 
     document.body.insertAdjacentHTML('afterbegin', sidebarHtml);
 
-    // Initialiser les icônes Lucide après l'injection
     if (window.lucide) {
         window.lucide.createIcons();
     }
@@ -52,7 +54,6 @@ export const initNavigation = (activePage) => {
     if (toggle && sidebar && overlay) {
         toggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
-            // Refresh icons in case something changed
             if (window.lucide) window.lucide.createIcons();
         });
 
