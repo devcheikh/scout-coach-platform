@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Découvrir les Coachs - Scout Coach</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .browse-header {
+      padding: 20px 0;
+    }
+    .search-box {
+      margin-bottom: 24px;
+    }
+    .filter-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+    
+    .filter-chip {
+      white-space: nowrap;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-scout-silver);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .filter-chip.active {
+      background: var(--color-scout-gold);
+      color: var(--color-scout-dark);
+      border-color: var(--color-scout-gold);
+    }
+    #talents-list {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--color-scout-silver);
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content with-sidebar">
+    <div class="container animate-fade-in">
+      <header class="browse-header">
+        <h1 style="font-size: 1.75rem; margin-bottom: 16px;">Découvrir les <span class="text-gold-gradient">Talents</span></h1>
+        
+        <div class="search-box">
+          <input type="text" id="search-input" class="input-gold" placeholder="Nom, club ou spécialité...">
+        </div>
+
+        <div class="filter-scroll" id="filters-container">
+          <div class="filter-chip active" data-filter="all">Tous les Systèmes</div>
+          <div class="filter-chip" data-filter="4-3-3">4-3-3</div>
+          <div class="filter-chip" data-filter="4-2-3-1">4-2-3-1</div>
+          <div class="filter-chip" data-filter="3-5-2">3-5-2</div>
+          <div class="filter-chip" data-filter="4-4-2">4-4-2</div>
+        </div>
+      </header>
+
+      <main id="talents-list">
+        <div class="agent-card talent-card animate-pulse" style="height: 400px; margin-bottom: 24px;"></div>
+        <div class="agent-card talent-card animate-pulse" style="height: 400px; margin-bottom: 24px;"></div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initNavigation } from './js/navigation.js';
+    initNavigation('explorer');
+  </script>
+  <script type="module" src="js/browse.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mon Profil - Scout Coach</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .dashboard-container {
+      padding-bottom: 40px;
+    }
+    .profile-header-card {
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      border-radius: 24px;
+    }
+    .upload-box {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 20px;
+      border: 2px dashed rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .upload-box:hover { border-color: var(--color-scout-gold); }
+    .upload-box.has-image { border: 2px solid var(--color-scout-gold); }
+    
+    #preview-img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .form-section {
+      margin-top: 20px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loading-screen" style="position:fixed; inset:0; background:var(--color-scout-dark); z-index:2000; display:flex; align-items:center; justify-content:center;">
+    <div class="animate-pulse" style="width: 40px; height: 40px; border: 3px solid var(--color-scout-gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+  </div>
+
+  <div class="main-content with-sidebar">
+    <div class="container dashboard-container animate-fade-in">
+      <header style="margin-bottom: 32px;">
+        <h1 style="font-size: 1.75rem;">Mon <span class="text-gold-gradient">Dossier Coach</span></h1>
+        <p style="font-size: 14px; color: var(--color-scout-silver); margin-top: 5px;">Mettez à jour vos informations professionnelles.</p>
+      </header>
+
+      <div class="agent-card profile-header-card">
+        <label class="upload-box" id="upload-area">
+          <img id="preview-img" src="" style="display:none;" alt="Preview">
+          <div id="upload-content">
+            <i data-lucide="camera" style="width:32px; height:32px; color:var(--color-scout-gold);"></i>
+            <p style="font-size: 10px; font-weight: 800; margin-top: 8px; color: var(--color-scout-gold); letter-spacing: 0.1em;">PHOTO ID</p>
+          </div>
+          <input type="file" id="image-input" style="display:none;" accept="image/*">
+        </label>
+        <h2 id="display-name" style="font-size: 1.5rem;">Coach Name</h2>
+        <p id="display-club" style="font-size: 14px; color: var(--color-scout-gold); margin-top: 6px; font-weight: 600;">Club / Agence</p>
+      </div>
+
+      <form id="dashboard-form" class="form-section">
+        <div class="form-group">
+          <label class="label-gold">Nom Complet Officiel</label>
+          <input type="text" id="nom" class="input-gold" placeholder="Ex: Jean-Marc Furlan" required>
+        </div>
+
+        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+          <div class="form-group">
+            <label class="label-gold">Club / Agence</label>
+            <input type="text" id="club" class="input-gold" placeholder="Ex: ADT">
+          </div>
+          <div class="form-group">
+            <label class="label-gold">Spécialité</label>
+            <input type="text" id="specialite" class="input-gold" placeholder="Ex: Senior coach">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label-gold">Numéro de Téléphone (WhatsApp)</label>
+          <input type="tel" id="telephone" class="input-gold" placeholder="Ex: +221 77 XXX XX XX">
+        </div>
+
+        <div class="form-group">
+          <label class="label-gold">Diplôme / Licence</label>
+          <input type="text" id="diplomes" class="input-gold" placeholder="Ex: Licence UEFA Pro">
+        </div>
+
+        <div class="form-group">
+          <label class="label-gold">Système Tactique de Prédilection</label>
+          <div style="position:relative;">
+            <select id="tactique" class="input-gold" style="appearance:none;">
+              <option value="4-3-3">4-3-3 (Possession)</option>
+              <option value="4-2-3-1">4-2-3-1 (Transition)</option>
+              <option value="4-4-2">4-4-2 (Équilibre)</option>
+              <option value="3-5-2">3-5-2 (Ailes)</option>
+              <option value="3-4-3">3-4-3 (Pressing)</option>
+            </select>
+            <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); pointer-events:none; opacity:0.6;">▼</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label-gold">Parcours Professionnel</label>
+          <textarea id="experience" class="input-gold" style="height:120px; resize:none;" placeholder="Détaillez vos expériences passées..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="label-gold">Philosophie de Management</label>
+          <textarea id="bio" class="input-gold" style="height:120px; resize:none;" placeholder="Votre vision du football et de la gestion de groupe..."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-gold" style="width:100%; margin-top: 10px; padding: 20px;">
+          <span id="btn-content-default">PUBLIER MON DOSSIER</span>
+          <span id="btn-content-loading" style="display:none; align-items:center; gap:10px; justify-content:center;">
+            <div style="width:18px; height:18px; border:2px solid black; border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;"></div>
+            Mise à jour du réseau...
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initNavigation } from './js/navigation.js';
+    initNavigation('profil');
+  </script>
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

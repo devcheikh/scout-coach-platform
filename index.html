@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Scout Coach | Plateforme d'Élite pour Coachs & Recruteurs</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .hero-fixed-bg {
+      background-image: url('assets/images/bg-hero.png');
+    }
+    .badge-premium {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--color-scout-gold);
+      border-radius: 30px;
+      color: var(--color-scout-gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .feature-icon {
+      width: 60px; height: 60px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--color-scout-gold);
+    }
+    .section-padding { padding: 100px 0; }
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--color-scout-silver);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section Immersive -->
+  <section class="hero-full hero-fixed-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <div class="badge-premium animate-fade-in">Le futur du recrutement technique</div>
+      <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 20px;">
+        Propulsez votre <span class="text-gold-gradient">carrière</span> technique
+      </h1>
+      <p style="font-size: clamp(1rem, 4vw, 1.25rem); color: var(--color-scout-silver); max-width: 600px; margin: 0 auto 40px;">
+        L'écosystème digital exclusif reliant les coachs d'élite aux recruteurs du monde entier.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+        <button onclick="window.location.href='browse.html'" class="btn-gold">Explorer les Talents</button>
+        <button onclick="window.location.href='dashboard.html'" class="btn-outline">Créer mon Dossier</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Pourquoi nous ? -->
+  <section class="section-padding container">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 15px;" class="reveal">L'élégance au service du <span class="text-gold-gradient">Talent</span></h2>
+      <p style="color: var(--color-scout-silver); max-width: 700px; margin: 0 auto;" class="reveal delay-1">
+        Nous avons conçu une plateforme où chaque détail compte. Un coach n'est pas qu'un CV, c'est une philosophie, un système et une expérience.
+      </p>
+    </div>
+
+    <div class="info-grid">
+      <div class="glass-card reveal delay-1">
+        <div class="feature-icon"><i data-lucide="shield"></i></div>
+        <h3 style="margin-bottom: 12px;">Dossier Certifié</h3>
+        <p style="font-size: 14px; color: var(--color-scout-silver);">Chaque profil est structuré professionnellement pour répondre aux attentes des agences de recrutement internationales.</p>
+      </div>
+      <div class="glass-card reveal delay-2">
+        <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
+        <h3 style="margin-bottom: 12px;">Data Tactique</h3>
+        <p style="font-size: 14px; color: var(--color-scout-silver);">Mettez en avant votre système préférentiel, votre diplôme UEFA et votre vision du management en un coup d'œil.</p>
+      </div>
+      <div class="glass-card reveal delay-3">
+        <div class="feature-icon"><i data-lucide="zap"></i></div>
+        <h3 style="margin-bottom: 12px;">Contact Direct</h3>
+        <p style="font-size: 14px; color: var(--color-scout-silver);">Éliminez les intermédiaires. Les recruteurs vous contactent directement par Email ou WhatsApp Securisé.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Chiffres Clés -->
+  <section style="background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 0;">
+    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center;">
+      <div class="reveal">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Profils Professionnels</span>
+      </div>
+      <div class="reveal delay-1">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Accès Recruteurs</span>
+      </div>
+      <div class="reveal delay-2">
+        <span class="stat-number">0</span>
+        <span class="stat-label">Intermédiaires</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA de fin -->
+  <section class="section-padding container" style="text-align: center;">
+    <div class="glass-card reveal" style="padding: 60px 20px; overflow: hidden; position: relative;">
+      <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);"></div>
+      <h2 style="font-size: 2rem; margin-bottom: 20px;">Prêt à entrer dans l'arène ?</h2>
+      <p style="color: var(--color-scout-silver); margin-bottom: 40px;">Rejoignez le réseau grandissant des techniciens du football moderne.</p>
+      <button onclick="window.location.href='dashboard.html'" class="btn-gold">Générer mon Dossier</button>
+    </div>
+  </section>
+
+  <footer style="padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+    <p style="font-size: 11px; color: rgba(148, 163, 184, 0.4); text-transform: uppercase; letter-spacing: 0.2rem;">
+      SCOUT.COACH • L'excellence Technique Digitale © 2026
+    </p>
+  </footer>
+
+  <script>
+    // Scroll Reveal Logic
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          el.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
