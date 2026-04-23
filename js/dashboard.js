@@ -7,35 +7,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const loadingScreen = document.getElementById('loading-screen');
     const tabMyTalents = document.getElementById('tab-my-talents');
-    const tabAdmin = document.getElementById('tab-admin');
     const sectionMyTalents = document.getElementById('section-my-talents');
-    const sectionAdmin = document.getElementById('section-admin');
 
     const talentsOwnerList = document.getElementById('talents-owner-list');
-    const adminTableBody = document.getElementById('admin-table-body');
     const form = document.getElementById('dashboard-form');
     const viewList = document.getElementById('view-list');
     const viewForm = document.getElementById('view-form');
     
-    // UI Logic: Tabs
-    if (isAdmin(user.email)) {
-        tabAdmin.style.display = 'block';
-    }
-
+    // UI Logic: Tabs (Simplified)
     tabMyTalents.onclick = () => {
-        tabMyTalents.classList.add('active');
-        tabAdmin.classList.remove('active');
-        sectionMyTalents.style.display = 'block';
-        sectionAdmin.style.display = 'none';
         fetchUserCoaches();
-    };
-
-    tabAdmin.onclick = () => {
-        tabAdmin.classList.add('active');
-        tabMyTalents.classList.remove('active');
-        sectionAdmin.style.display = 'block';
-        sectionMyTalents.style.display = 'none';
-        fetchAdminCoaches();
     };
 
     // --- LOGIQUE AGENT (MES TALENTS) ---
@@ -89,28 +70,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.del-btn').forEach(btn => btn.onclick = () => deleteCoach(btn.dataset.id));
     };
 
-    // --- LOGIQUE ADMIN ---
-    const fetchAdminCoaches = async () => {
-        const { data, error } = await supabase.from('coaches').select('*').order('updated_at', { ascending: false });
-        if (!error) renderAdminCoaches(data);
-    };
-
-    const renderAdminCoaches = (coaches) => {
-        adminTableBody.innerHTML = coaches.map(coach => `
-            <tr>
-                <td><div style="display:flex; align-items:center; gap:10px;"><img src="${coach.photo || ''}" style="width:30px; height:30px; border-radius:50%; object-fit:cover;"> ${coach.nom}</div></td>
-                <td style="font-size:11px; opacity:0.6;">${coach.email || 'N/A'}</td>
-                <td><span class="status-badge ${coach.status === 'published' ? 'status-published' : 'status-pending'}">${coach.status}</span></td>
-                <td style="text-align:right;">
-                    ${coach.status === 'published' ? 
-                        `<button class="btn-action btn-reject" data-id="${coach.id}" data-action="pending">Masquer</button>` : 
-                        `<button class="btn-action btn-approve" data-id="${coach.id}" data-action="published">Publier</button>`
-                    }
-                </td>
-            </tr>
-        `).join('');
-        attachAdminEvents();
-    };
 
     const attachAdminEvents = () => {
         document.querySelectorAll('.btn-action').forEach(btn => {
