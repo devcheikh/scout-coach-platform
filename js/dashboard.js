@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
                 <div style="display:flex; gap:12px; align-items:center;">
-                    <button class="publish-btn" data-id="${coach.id}" data-status="${coach.status}" title="${coach.status === 'published' ? 'Masquer' : 'Mettre en ligne'}" style="background:none; border:none; color:${coach.status === 'published' ? '#25D366' : 'var(--color-scout-silver)'}; cursor:pointer;">
-                        <i data-lucide="${coach.status === 'published' ? 'eye-off' : 'globe'}" style="width:16px;"></i>
-                    </button>
                     <button class="preview-btn" data-id="${coach.id}" title="Voir le Portfolio Public" style="background:none; border:none; color:var(--color-scout-silver); cursor:pointer;"><i data-lucide="eye" style="width:16px;"></i></button>
                     <button class="edit-btn" data-id="${coach.id}" title="Modifier" style="background:none; border:none; color:var(--color-scout-gold); cursor:pointer;"><i data-lucide="edit-2" style="width:14px;"></i></button>
                     <button class="del-btn" data-id="${coach.id}" title="Supprimer" style="background:none; border:none; color:#ff4444; cursor:pointer;"><i data-lucide="trash-2" style="width:14px;"></i></button>
@@ -68,14 +65,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const attachAgentEvents = () => {
-        document.querySelectorAll('.publish-btn').forEach(btn => {
-            btn.onclick = async () => {
-                const currentStatus = btn.dataset.status;
-                const newStatus = currentStatus === 'published' ? 'pending' : 'published';
-                const { error } = await supabase.from('coaches').update({ status: newStatus }).eq('id', btn.dataset.id);
-                if (!error) fetchUserCoaches();
-            };
-        });
         document.querySelectorAll('.preview-btn').forEach(btn => btn.onclick = () => window.open(`portfolio.html?id=${btn.dataset.id}`, '_blank'));
         document.querySelectorAll('.edit-btn').forEach(btn => btn.onclick = () => editCoach(btn.dataset.id));
         document.querySelectorAll('.del-btn').forEach(btn => btn.onclick = () => deleteCoach(btn.dataset.id));
