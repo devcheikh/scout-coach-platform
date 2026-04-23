@@ -41,9 +41,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         if (filtered.length === 0) {
-            talentsList.innerHTML = `<div class="empty-state">Aucun coach ne correspond à votre recherche.</div>`;
+            talentsList.innerHTML = `<div class="empty-state"><i data-lucide="search-x" style="width:48px; height:48px;"></i><p style="font-size:16px; font-weight:700; margin-bottom:8px;">Aucun talent trouvé</p><p style="font-size:13px; opacity:0.6;">Essayez de modifier vos filtres ou votre recherche.</p></div>`;
+            document.getElementById('results-count').textContent = '0';
             return;
         }
+        document.getElementById('results-count').textContent = filtered.length;
 
         talentsList.innerHTML = filtered.map(coach => `
             <div class="talent-card animate-fade-in" onclick="window.location.href='portfolio.html?id=${coach.id}'">
