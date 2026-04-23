@@ -1,7 +1,9 @@
+-- ==========================================
 -- SCRIPT DE MISE À JOUR SCOUT COACH PLATFORM
--- À copier-coller dans l'onglet "SQL Editor" de votre tableau de bord Supabase
+-- Version 2.0 - Sécurité et Dynamisme
+-- ==========================================
 
--- 1. Mise à jour de la table 'coaches'
+-- 1. MISE À JOUR DE LA STRUCTURE DE LA TABLE
 ALTER TABLE coaches 
 ADD COLUMN IF NOT EXISTS views BIGINT DEFAULT 0,
 ADD COLUMN IF NOT EXISTS theme TEXT DEFAULT 'theme-gold',
@@ -10,20 +12,36 @@ ADD COLUMN IF NOT EXISTS agency_name TEXT,
 ADD COLUMN IF NOT EXISTS agency_logo TEXT,
 ADD COLUMN IF NOT EXISTS cv_url TEXT;
 
--- 2. Configuration des permissions (RLS) - Si non déjà fait
--- Permettre à tout le monde de voir les profils publiés
-DO $$ 
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Public profiles are viewable by everyone') THEN
-        CREATE POLICY "Public profiles are viewable by everyone" ON coaches FOR SELECT USING (status = 'published');
-    END IF;
-    
-    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can manage their own talent profiles') THEN
-        CREATE POLICY "Users can manage their own talent profiles" ON coaches FOR ALL USING (auth.uid() = uid);
-    END IF;
-END $$;
+-- 2. ACTIVATION DE LA SÉCURITÉ (RLS)
+ALTER TABLE coaches ENABLE ROW LEVEL SECURITY;
 
--- 3. Note sur le Stockage (Storage)
+-- 3. NETTOYAGE DES ANCIENNES RÈGLES
+DROP POLICY IF EXISTS "Public profiles are viewable by everyone" ON coaches;
+DROP POLICY IF EXISTS "Users can manage their own talent profiles" ON coaches;
+DROP POLICY IF EXISTS "Allow insert for authenticated users" ON coaches;
+DROP POLICY IF EXISTS "Allow individual update" ON coaches;
+DROP POLICY IF EXISTS "Allow individual delete" ON coaches;
+DROP POLICY IF EXISTS "Public access" ON coaches;
+
+-- 4. NOUVELLES RÈGLES DE SÉCURITÉ ROBUSTES
+
+-- LECTURE : Tout le monde peut voir les dossiers
+CREATE POLICY "Public access" ON coaches 
+FOR SELECT USING (true);
+
+-- INSERTION : Tout utilisateur connecté peut créer un dossier
+CREATE POLICY "Allow insert for authenticated users" ON coaches
+FOR INSERT TO authenticated WITH CHECK (true);
+
+-- MODIFICATION : Seul le propriétaire peut modifier son dossier (avec conversion de type UUID/TEXT)
+CREATE POLICY "Allow individual update" ON coaches
+FOR UPDATE TO authenticated USING (auth.uid()::text = uid::text);
+
+-- SUPPRESSION : Seul le propriétaire peut supprimer son dossier
+CREATE POLICY "Allow individual delete" ON coaches
+FOR DELETE TO authenticated USING (auth.uid()::text = uid::text);
+
+-- 5. RAPPEL POUR LE STOCKAGE (STORAGE)
 -- Allez dans l'onglet "Storage" et créez les Buckets suivants en mode PUBLIC :
 -- 1. coach-photos
 -- 2. coach-cvs
