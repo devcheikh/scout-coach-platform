@@ -29,7 +29,7 @@ export const logout = async () => {
 export const isAdmin = (email) => {
     if (!email) return false;
     const adminEmail = email.toLowerCase();
-    const admins = ['coach@scout.com', 'admin@scout-coach.com', 'admin@admin.com']; 
+    const admins = ['cheikhtalibouyadiop6@gmail.com', 'coach@scout.com', 'admin@scout-coach.com', 'admin@admin.com']; 
     console.log("Checking Admin for:", adminEmail);
     return admins.includes(adminEmail);
 };
