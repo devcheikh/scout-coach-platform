@@ -111,13 +111,19 @@
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
             } else {
-                const { error } = await supabase.auth.signUp({ 
+                const { data, error } = await supabase.auth.signUp({ 
                     email, 
-                    password,
-                    options: { emailRedirectTo: window.location.origin }
+                    password
                 });
                 if (error) throw error;
-                alert("Inscription réussie ! Vérifiez votre email pour confirmer votre compte.");
+                
+                // Si la session est active (confirmation désactivée), on redirige de suite
+                if (data.session) {
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+
+                alert("Inscription réussie ! Veuillez maintenant vous connecter.");
                 isLogin = true;
                 btnText.innerText = "SE CONNECTER";
                 authBtn.disabled = false;
