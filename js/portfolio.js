@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const { data, error } = await supabase
       .from('coaches')
       .select('*')
-      .eq('uid', id)
+      .eq('id', id)
       .maybeSingle();
 
     if (error) throw error;
@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('display-tactique').textContent = data.tactique || "N/A";
       document.getElementById('display-experience').textContent = data.experience || "Aucune expérience renseignée.";
       document.getElementById('display-bio').textContent = data.bio || "Le coach n'a pas encore partagé sa vision du management.";
+      
+      // CV Link
+      if (data.cv_url) {
+        document.getElementById('display-cv').href = data.cv_url;
+        document.getElementById('cv-section').style.display = 'block';
+      }
 
       // Contact Info
       if (data.email) {

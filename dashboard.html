@@ -112,6 +112,13 @@
                     <select id="tactique" class="input-gold" style="appearance:none;"><option value="4-3-3">4-3-3</option><option value="4-2-3-1">4-2-3-1</option><option value="4-4-2">4-4-2</option><option value="3-5-2">3-5-2</option></select>
                 </div>
                 <div class="form-group"><label class="label-gold">Expérience</label><textarea id="experience" class="input-gold" style="height:100px; resize:none;"></textarea></div>
+                <div class="form-group">
+                    <label class="label-gold">CV (Format PDF)</label>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <input type="file" id="cv-input" class="input-gold" accept=".pdf" style="padding:10px;">
+                        <div id="cv-status" style="font-size:11px; color:#25D366; display:none;"><i data-lucide="check-circle" style="width:14px; height:14px; vertical-align:middle;"></i> Prêt</div>
+                    </div>
+                </div>
                 <div class="form-group"><label class="label-gold">Vision</label><textarea id="bio" class="input-gold" style="height:100px; resize:none;"></textarea></div>
                 <button type="submit" id="submit-btn" class="btn-gold" style="width:100%;">ENREGISTRER</button>
             </form>

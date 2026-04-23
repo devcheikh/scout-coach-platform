@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         talentsList.innerHTML = filtered.map(coach => `
-            <div class="agent-card talent-card animate-fade-in" onclick="window.location.href='portfolio.html?id=${coach.uid}'">
+            <div class="agent-card talent-card animate-fade-in" onclick="window.location.href='portfolio.html?id=${coach.id}'">
                 <div class="talent-image-box">
                     ${coach.photo ? `<img src="${coach.photo}" class="talent-img" alt="${coach.nom}">` : `
                         <div style="width:100%; height:100%; background:#05070a; display:flex; align-items:center; justify-content:center; color:rgba(212,175,55,0.1);">
