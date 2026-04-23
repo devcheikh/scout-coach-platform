@@ -122,7 +122,9 @@
       <div id="video-section" style="display:none; margin-bottom: 40px;">
           <div class="agent-card" style="padding:0; overflow:hidden; border-radius:24px; aspect-ratio:16/9;">
               <iframe id="display-video" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
+          <div style="display:flex; justify-content:center; margin-bottom: 20px;">
+           <span id="display-views" style="font-size:10px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px;"><i data-lucide="eye" style="width:12px; vertical-align:middle; margin-right:5px;"></i> ... vues</span>
+        </div>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
@@ -168,7 +170,10 @@
       </div>
     </div>
 
-    <div class="action-bar">
+    <div class="action-bar" style="display:flex; flex-direction:column; gap:12px;">
+        <button id="btn-share" class="btn-outline" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px; border-color:rgba(255,255,255,0.1); color:white;">
+          <i data-lucide="share-2"></i> PARTAGER LE PROFIL (WHATSAPP)
+        </button>
         <button onclick="window.print()" class="btn-gold" style="width:100%; padding: 22px; font-weight: 900; letter-spacing: 0.15em;">
           <i data-lucide="download" style="margin-right: 8px;"></i> EXPORTER LE DOSSIER PROFESSIONNEL (PDF)
         </button>

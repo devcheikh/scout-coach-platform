@@ -121,8 +121,18 @@
                 </div>
                 <div class="form-group"><label class="label-gold">Vision</label><textarea id="bio" class="input-gold" style="height:100px; resize:none;"></textarea></div>
                 
-                <h3 style="font-size: 1rem; margin: 20px 0 15px; color: var(--color-scout-gold);">Branding & Contenu</h3>
-                <div class="form-group"><label class="label-gold">Lien Vidéo Highlights (YouTube Only)</label><input type="url" id="video-url" class="input-gold" placeholder="https://www.youtube.com/watch?v=..."></div>
+                <h3 style="font-size: 1rem; margin: 20px 0 15px; color: var(--color-scout-gold);">Branding & Personnalisation</h3>
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label class="label-gold">Style du Portfolio</label>
+                        <select id="theme-select" class="input-gold" style="appearance:none;">
+                            <option value="theme-gold">✨ Or Premium</option>
+                            <option value="theme-silver">🥈 Argent Moderne</option>
+                            <option value="theme-dark">🌑 Nuit Profonde</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="label-gold">YouTube Link</label><input type="url" id="video-url" class="input-gold" placeholder="..."></div>
+                </div>
                 
                 <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
                     <div class="form-group"><label class="label-gold">Nom de l'Agence</label><input type="text" id="agency-name" class="input-gold"></div>

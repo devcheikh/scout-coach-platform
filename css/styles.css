@@ -282,6 +282,42 @@ a { text-decoration: none; color: inherit; }
 .animate-pulse { animation: fadeIn 2s infinite alternate; }
 
 @media print {
-  .sidebar, .mobile-header, .sidebar-overlay { display: none !important; }
+  .sidebar, .mobile-header, .sidebar-overlay, .action-bar, #cv-section, #video-section { display: none !important; }
   .with-sidebar { padding-left: 0 !important; }
+}
+
+/* THEMES */
+body.theme-silver {
+    --color-scout-gold: #CBD5E1;
+    --color-scout-gold-vibrant: #F8FAFC;
+    --color-scout-gold-deep: #64748B;
+    --glow-gold: 0 0 20px rgba(203, 213, 225, 0.2);
+}
+
+body.theme-dark {
+    --color-scout-gold: #ffffff;
+    --color-scout-gold-vibrant: #ffffff;
+    --color-scout-gold-deep: #475569;
+    --glow-gold: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+body.theme-silver .btn-gold {
+    background: linear-gradient(135deg, #94A3B8, #F8FAFC, #64748B);
+    box-shadow: 0 8px 25px rgba(148, 163, 184, 0.3);
+}
+
+body.theme-dark .btn-gold {
+    background: white;
+    color: black;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+body.theme-silver .text-gold-gradient {
+    background: linear-gradient(to right, #F8FAFC, #CBD5E1, #94A3B8);
+    -webkit-background-clip: text; background-clip: text;
+}
+
+body.theme-dark .text-gold-gradient {
+    background: white;
+    -webkit-background-clip: text; background-clip: text;
 }

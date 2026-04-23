@@ -65,9 +65,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <img src="${coach.photo || ''}" class="talent-item-img" onerror="this.src='https://via.placeholder.com/50'">
                 <div style="flex:1;">
                     <h4 style="font-size:14px;">${coach.nom}</h4>
-                    <span class="status-badge ${coach.status === 'published' ? 'status-published' : 'status-pending'}">
-                        ${coach.status === 'published' ? 'En Ligne' : 'En Attente'}
-                    </span>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <span class="status-badge ${coach.status === 'published' ? 'status-published' : 'status-pending'}">
+                            ${coach.status === 'published' ? 'En Ligne' : 'En Attente'}
+                        </span>
+                        <span style="font-size:9px; color:rgba(255,255,255,0.4); font-weight:700;"><i data-lucide="eye" style="width:10px; height:10px; vertical-align:middle;"></i> ${coach.views || 0} vues</span>
+                    </div>
                 </div>
                 <div style="display:flex; gap:12px; align-items:center;">
                     <button class="preview-btn" data-id="${coach.id}" title="Voir le Portfolio Public" style="background:none; border:none; color:var(--color-scout-silver); cursor:pointer;"><i data-lucide="eye" style="width:16px;"></i></button>
@@ -193,6 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 bio: document.getElementById('bio').value,
                 video_url: document.getElementById('video-url').value,
                 agency_name: document.getElementById('agency-name').value,
+                theme: document.getElementById('theme-select').value,
                 photo: photoUrl,
                 cv_url: cvUrl,
                 updated_at: new Date().toISOString()
@@ -244,6 +248,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('bio').value = data.bio || '';
         document.getElementById('video-url').value = data.video_url || '';
         document.getElementById('agency-name').value = data.agency_name || '';
+        document.getElementById('theme-select').value = data.theme || 'theme-gold';
         document.getElementById('agency-logo-input').value = '';
 
         if (data.photo) {

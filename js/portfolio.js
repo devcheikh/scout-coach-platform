@@ -88,9 +88,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('contact-whatsapp').style.display = 'none';
       }
 
+      // Theme
+      if (data.theme) document.body.className = data.theme;
+
+      // Views Increment
+      const currentViews = data.views || 0;
+      document.getElementById('display-views').innerHTML = `<i data-lucide="eye" style="width:12px; vertical-align:middle; margin-right:5px;"></i> ${currentViews + 1} vues`;
+      
+      // Update views in background
+      supabase.from('coaches').update({ views: currentViews + 1 }).eq('id', id).then();
+
+      // Share Logic
+      const btnShare = document.getElementById('btn-share');
+      if (btnShare) {
+          btnShare.onclick = () => {
+              const text = `Découvrez le profil professionnel de ${data.nom} sur Scout Coach Platform : ${window.location.href}`;
+              window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+          };
+      }
+
       // Show content
       if (loadingScreen) loadingScreen.style.display = 'none';
       if (contentScreen) contentScreen.style.display = 'block';
+      if (window.lucide) window.lucide.createIcons();
     } else {
       if (loadingScreen) loadingScreen.style.display = 'none';
       if (errorScreen) errorScreen.style.display = 'flex';
