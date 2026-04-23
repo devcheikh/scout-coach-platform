@@ -1,4 +1,4 @@
-import { logout } from './auth.js';
+import { logout, isAdmin } from './auth.js';
 import { supabase } from './supabase-config.js';
 
 export const initNavigation = (activePage) => {
@@ -16,6 +16,9 @@ export const initNavigation = (activePage) => {
               ${user ? 
                 `<a href="dashboard.html" class="sidebar-item ${activePage === 'profil' ? 'active' : ''}"><i data-lucide="layout"></i> Mon Espace</a>` : 
                 `<a href="login.html" class="sidebar-item"><i data-lucide="log-in"></i> Connexion</a>`
+              }
+              ${(user && isAdmin(user.email)) ? 
+                `<a href="admin.html" class="sidebar-item ${activePage === 'admin' ? 'active' : ''}" style="color:var(--color-scout-gold); background:rgba(212,175,55,0.05);"><i data-lucide="shield-check"></i> Admin</a>` : ''
               }
             </nav>
 

@@ -1,6 +1,13 @@
 import { supabase } from './supabase-config.js';
+import { checkAuth, isAdmin } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const user = await checkAuth();
+    if (!user || !isAdmin(user.email)) {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
     const loadingScreen = document.getElementById('loading-screen');
     const tableBody = document.getElementById('admin-talents-body');
 
