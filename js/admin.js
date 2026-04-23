@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td style="text-align:right;">
                     ${coach.status === 'published' ? 
                         `<button class="btn-status btn-hide" data-id="${coach.id}" data-action="pending">Masquer</button>` : 
-                        `<button class="btn-status btn-approve" data-id="${coach.id}" data-action="published">Approuver</button>`
+                        `<button class="btn-status btn-approve" data-id="${coach.id}" data-action="published">Mettre en ligne</button>`
                     }
                     <button class="btn-status btn-delete" data-id="${coach.id}">Supprimer</button>
                 </td>
