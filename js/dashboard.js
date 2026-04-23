@@ -229,5 +229,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initial load
     fetchUserCoaches();
-    setTimeout(() => { if (loadingScreen) loadingScreen.style.opacity = '0'; }, 500);
+    setTimeout(() => { 
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => loadingScreen.style.display = 'none', 500);
+        }
+    }, 500);
 });
