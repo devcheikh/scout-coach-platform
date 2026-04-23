@@ -61,12 +61,27 @@
           <input type="text" id="search-input" class="input-gold" placeholder="Nom, club ou spécialité...">
         </div>
 
-        <div class="filter-scroll" id="filters-container">
-          <div class="filter-chip active" data-filter="all">Tous les Systèmes</div>
-          <div class="filter-chip" data-filter="4-3-3">4-3-3</div>
-          <div class="filter-chip" data-filter="4-2-3-1">4-2-3-1</div>
-          <div class="filter-chip" data-filter="3-5-2">3-5-2</div>
-          <div class="filter-chip" data-filter="4-4-2">4-4-2</div>
+        <div style="margin-top: 15px;">
+           <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-scout-gold); margin-bottom: 8px; font-weight: 800;">Système Tactique</p>
+           <div class="filter-scroll" id="filters-tactique">
+            <div class="filter-chip active" data-filter="all" data-type="tactique">Tous</div>
+            <div class="filter-chip" data-filter="4-3-3" data-type="tactique">4-3-3</div>
+            <div class="filter-chip" data-filter="4-2-3-1" data-type="tactique">4-2-3-1</div>
+            <div class="filter-chip" data-filter="3-5-2" data-type="tactique">3-5-2</div>
+            <div class="filter-chip" data-filter="4-4-2" data-type="tactique">4-4-2</div>
+           </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+           <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-scout-gold); margin-bottom: 8px; font-weight: 800;">Diplôme / Licence</p>
+           <div class="filter-scroll" id="filters-diplome">
+             <div class="filter-chip active" data-filter="all" data-type="diplome">Tous</div>
+             <div class="filter-chip" data-filter="UEFA Pro" data-type="diplome">UEFA Pro</div>
+             <div class="filter-chip" data-filter="UEFA A" data-type="diplome">UEFA A</div>
+             <div class="filter-chip" data-filter="UEFA B" data-type="diplome">UEFA B</div>
+             <div class="filter-chip" data-filter="FAF" data-type="diplome">FAF</div>
+             <div class="filter-chip" data-filter="CAF Pro" data-type="diplome">CAF Pro</div>
+           </div>
         </div>
       </header>
 

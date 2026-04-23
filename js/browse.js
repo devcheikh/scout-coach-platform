@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const filterChips = document.querySelectorAll('.filter-chip');
     
     let allCoaches = [];
-    let currentFilter = 'all';
+    let currentTactique = 'all';
+    let currentDiplome = 'all';
     let searchQuery = '';
 
     // Fetch coaches
@@ -29,13 +30,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const renderCoaches = () => {
         const filtered = allCoaches.filter(c => {
-            const matchesFilter = currentFilter === 'all' || c.tactique === currentFilter;
+            const matchesTactique = currentTactique === 'all' || c.tactique === currentTactique;
+            const matchesDiplome = currentDiplome === 'all' || (c.diplomes && c.diplomes.includes(currentDiplome));
             const matchesSearch = !searchQuery || 
                 (c.nom && c.nom.toLowerCase().includes(searchQuery.toLowerCase())) ||
                 (c.club && c.club.toLowerCase().includes(searchQuery.toLowerCase())) ||
                 (c.specialite && c.specialite.toLowerCase().includes(searchQuery.toLowerCase()));
             
-            return matchesFilter && matchesSearch;
+            return matchesTactique && matchesDiplome && matchesSearch;
         });
 
         if (filtered.length === 0) {
@@ -56,11 +58,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
                 <div class="talent-info">
-                    <h3 class="talent-name">${coach.nom}</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <h3 class="talent-name">${coach.nom}</h3>
+                        ${coach.agency_logo ? `<img src="${coach.agency_logo}" style="width:14px; height:14px; object-fit:contain; opacity:0.6;">` : ''}
+                    </div>
                     <p class="talent-club">${coach.club || 'Agent Libre'} • <span style="color:var(--color-scout-gold);">${coach.tactique}</span></p>
-                    <p style="font-size:11px; color:rgba(148,163,184,0.5); margin-top:10px; text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:8px;">
-                        Voir le profil complet <i data-lucide="arrow-right" style="width:12px; height:12px;"></i>
-                    </p>
+                    <p style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:5px;">${coach.diplomes || ''}</p>
                 </div>
             </div>
         `).join('');
@@ -73,9 +76,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Filter Logic
     filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
-            filterChips.forEach(c => c.classList.remove('active'));
+            const type = chip.getAttribute('data-type');
+            const val = chip.getAttribute('data-filter');
+            
+            // Only deactivate siblings of the same type
+            document.querySelectorAll(`.filter-chip[data-type="${type}"]`).forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
-            currentFilter = chip.getAttribute('data-filter');
+            
+            if (type === 'tactique') currentTactique = val;
+            if (type === 'diplome') currentDiplome = val;
+            
             renderCoaches();
         });
     });

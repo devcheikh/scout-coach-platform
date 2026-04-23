@@ -162,6 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             let photoUrl = previewImg.src.startsWith('http') ? previewImg.src : null;
             let cvUrl = null;
+            let agencyLogoUrl = null;
 
             // Upload photo if new
             if (imageInput.files[0]) {
@@ -171,6 +172,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Upload CV if new
             if (cvInput.files[0]) {
                 cvUrl = await uploadFile(cvInput.files[0], 'coach-cvs');
+            }
+
+            // Upload Agency Logo if new
+            const agencyLogoInput = document.getElementById('agency-logo-input');
+            if (agencyLogoInput.files[0]) {
+                agencyLogoUrl = await uploadFile(agencyLogoInput.files[0], 'agency-logos');
             }
 
             const coachData = {
@@ -184,13 +191,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tactique: document.getElementById('tactique').value,
                 experience: document.getElementById('experience').value,
                 bio: document.getElementById('bio').value,
+                video_url: document.getElementById('video-url').value,
+                agency_name: document.getElementById('agency-name').value,
                 photo: photoUrl,
                 cv_url: cvUrl,
                 updated_at: new Date().toISOString()
             };
 
-            // If updating, don't overwrite CV if no new one provided
+            if (agencyLogoUrl) coachData.agency_logo = agencyLogoUrl;
+
+            // If updating, don't overwrite CV or Logo if no new one provided
             if (cid && !cvUrl) delete coachData.cv_url;
+            // Note: agency_logo is handled by check above (only set if uploaded)
 
             let res;
             if (cid) res = await supabase.from('coaches').update(coachData).eq('id', cid);
@@ -230,6 +242,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('tactique').value = data.tactique || '4-3-3';
         document.getElementById('experience').value = data.experience || '';
         document.getElementById('bio').value = data.bio || '';
+        document.getElementById('video-url').value = data.video_url || '';
+        document.getElementById('agency-name').value = data.agency_name || '';
+        document.getElementById('agency-logo-input').value = '';
 
         if (data.photo) {
             previewImg.src = data.photo;

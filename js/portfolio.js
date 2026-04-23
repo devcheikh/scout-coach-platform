@@ -56,6 +56,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('cv-section').style.display = 'block';
       }
 
+      // Video Section
+      if (data.video_url) {
+        let videoId = '';
+        if (data.video_url.includes('v=')) videoId = data.video_url.split('v=')[1].split('&')[0];
+        else if (data.video_url.includes('youtu.be/')) videoId = data.video_url.split('youtu.be/')[1].split('?')[0];
+        
+        if (videoId) {
+            document.getElementById('display-video').src = `https://www.youtube.com/embed/${videoId}`;
+            document.getElementById('video-section').style.display = 'block';
+        }
+      }
+
+      // Agency Branding
+      if (data.agency_name) {
+          document.getElementById('display-agency-name').textContent = data.agency_name;
+          if (data.agency_logo) document.getElementById('display-agency-logo').src = data.agency_logo;
+          else document.getElementById('display-agency-logo').style.display = 'none';
+          document.getElementById('agency-badge').style.display = 'flex';
+      }
+
       // Contact Info
       if (data.email) {
         document.getElementById('contact-email').href = `mailto:${data.email}`;
