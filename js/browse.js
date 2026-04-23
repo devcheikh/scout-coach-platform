@@ -46,24 +46,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         talentsList.innerHTML = filtered.map(coach => `
-            <div class="agent-card talent-card animate-fade-in" onclick="window.location.href='portfolio.html?id=${coach.id}'">
+            <div class="talent-card animate-fade-in" onclick="window.location.href='portfolio.html?id=${coach.id}'">
+                <span class="talent-tag">${coach.specialite || 'Coach'}</span>
+                
                 <div class="talent-image-box">
                     ${coach.photo ? `<img src="${coach.photo}" class="talent-img" alt="${coach.nom}">` : `
-                        <div style="width:100%; height:100%; background:#05070a; display:flex; align-items:center; justify-content:center; color:rgba(212,175,55,0.1);">
-                            <i data-lucide="user" style="width: 48px; height: 48px;"></i>
+                        <div style="width:100%; height:100%; background:linear-gradient(135deg, #05070a, #1a1f26); display:flex; align-items:center; justify-content:center; color:rgba(212,175,55,0.2);">
+                            <i data-lucide="user" style="width: 60px; height: 60px;"></i>
                         </div>
                     `}
-                    <div style="position:absolute; bottom:0; padding:20px; width:100%; background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                        <span class="talent-tag">${coach.specialite || 'Coach'}</span>
-                    </div>
+                    <div style="position:absolute; bottom:0; left:0; width:100%; height:60%; background:linear-gradient(to top, rgba(5,7,10,1) 0%, transparent 100%); z-index:2;"></div>
                 </div>
-                <div class="talent-info">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+
+                <div class="talent-info" style="position:relative; z-index:3; margin-top:-40px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:8px;">
                         <h3 class="talent-name">${coach.nom}</h3>
-                        ${coach.agency_logo ? `<img src="${coach.agency_logo}" style="width:14px; height:14px; object-fit:contain; opacity:0.6;">` : ''}
+                        ${coach.agency_logo ? `<img src="${coach.agency_logo}" style="width:24px; height:24px; object-fit:contain; border-radius:4px; background:rgba(255,255,255,0.05); padding:2px;">` : ''}
                     </div>
-                    <p class="talent-club">${coach.club || 'Agent Libre'} • <span style="color:var(--color-scout-gold);">${coach.tactique}</span></p>
-                    <p style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:5px;">${coach.diplomes || ''}</p>
+                    
+                    <div class="talent-club" style="display:flex; align-items:center; gap:8px;">
+                        <i data-lucide="map-pin" style="width:12px; color:var(--color-scout-gold);"></i>
+                        ${coach.club || 'Agent Libre'}
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.05);">
+                        <div style="font-size:11px; font-weight:700; color:var(--color-scout-gold); display:flex; align-items:center; gap:5px;">
+                            <i data-lucide="layout" style="width:12px;"></i> ${coach.tactique}
+                        </div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.4); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">
+                            ${coach.diplomes || 'N/A'}
+                        </div>
+                    </div>
                 </div>
             </div>
         `).join('');
