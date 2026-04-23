@@ -40,6 +40,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!error) renderUserCoaches(data);
     };
 
+    const notifyAdminByEmail = (coachName, agentEmail) => {
+        console.log(`[Notification] 🔔 ALERTE : Nouveau dossier créé pour : ${coachName}.`);
+        if (window.emailjs) {
+            emailjs.init("MMbUGpDGhG00NPPv8");
+            const templateParams = {
+                coach_name: coachName,
+                agent_email: agentEmail,
+                date: new Date().toLocaleString('fr-FR')
+            };
+            emailjs.send("service_h6a3nff", "template_fl0xlqq", templateParams)
+                .then(() => console.log("✅ [EmailJS] Notification envoyée !"))
+                .catch((err) => console.error("❌ [EmailJS] Erreur:", err));
+        }
+    };
+
     const renderUserCoaches = (coaches) => {
         talentsOwnerList.innerHTML = coaches.map(coach => `
             <div class="talent-item">
