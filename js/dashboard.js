@@ -176,9 +176,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (res.error) throw res.error;
 
+            // --- NOTIFICATION EMAIL ---
+            notifyAdminByEmail(coachData.nom, user.email);
+
+            // Retour automatique à la liste (Page ferme)
             viewList.style.display = 'block';
             viewForm.style.display = 'none';
             fetchUserCoaches();
+
+            alert("Votre dossier a été envoyé avec succès ! Il est maintenant en attente de validation par l'administration.");
         } catch (err) {
             console.error("Error saving coach:", err);
             alert("Erreur lors de l'enregistrement : " + err.message);
