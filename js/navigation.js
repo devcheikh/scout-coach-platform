@@ -3,39 +3,46 @@ import { supabase } from './supabase-config.js';
 
 export const initNavigation = (activePage) => {
     supabase.auth.getUser().then(({ data: { user } }) => {
+        console.log("Nav User:", user?.email);
         const sidebarHtml = `
-          <aside class="sidebar" id="sidebar">
-            <a href="index.html" class="sidebar-logo" style="cursor:pointer; text-decoration:none;">
+          <aside class="sidebar" id="sidebar" style="z-index: 5000 !important;">
+            <a href="index.html" class="sidebar-logo" style="cursor:pointer; text-decoration:none; display:flex;">
               <div class="sidebar-logo-icon"><i data-lucide="trophy" style="width:20px; height:20px; color:#05070a;"></i></div>
               <h2 style="font-size:1.25rem; font-family:var(--font-heading);">SCOUT<span class="text-gold-gradient">.COACH</span></h2>
             </a>
             
             <nav class="sidebar-nav">
-              <a href="index.html" class="sidebar-item ${activePage === 'accueil' ? 'active' : ''}"><i data-lucide="home"></i> Accueil</a>
-              <a href="browse.html" class="sidebar-item ${activePage === 'explorer' ? 'active' : ''}"><i data-lucide="search"></i> Explorer</a>
+              <a href="index.html" class="sidebar-item ${activePage === 'accueil' ? 'active' : ''}" style="cursor:pointer;"><i data-lucide="home"></i> Accueil</a>
+              <a href="browse.html" class="sidebar-item ${activePage === 'explorer' ? 'active' : ''}" style="cursor:pointer;"><i data-lucide="search"></i> Explorer</a>
               ${user ? 
-                `<a href="dashboard.html" class="sidebar-item ${activePage === 'profil' ? 'active' : ''}"><i data-lucide="layout"></i> Mon Espace</a>` : 
-                `<a href="login.html" class="sidebar-item"><i data-lucide="log-in"></i> Connexion</a>`
+                `<a href="dashboard.html" class="sidebar-item ${activePage === 'profil' ? 'active' : ''}" style="cursor:pointer;"><i data-lucide="layout"></i> Mon Espace</a>` : 
+                `<a href="login.html" class="sidebar-item" style="cursor:pointer;"><i data-lucide="log-in"></i> Connexion</a>`
               }
               ${(user && isAdmin(user.email)) ? 
-                `<a href="admin.html" class="sidebar-item ${activePage === 'admin' ? 'active' : ''}" style="color:var(--color-scout-gold); background:rgba(212,175,55,0.05);"><i data-lucide="shield-check"></i> Admin</a>` : ''
+                `<a href="admin.html" class="sidebar-item ${activePage === 'admin' ? 'active' : ''}" style="color:var(--color-scout-gold); background:rgba(212,175,55,0.05); cursor:pointer;"><i data-lucide="shield-check"></i> Admin</a>` : ''
               }
             </nav>
 
             <div class="sidebar-footer">
               ${user ? 
-                `<button id="btn-logout" class="sidebar-item" style="width:100%; background:none; border:none; cursor:pointer;"><i data-lucide="log-out"></i> Déconnexion</button>` : 
+                `<button id="btn-logout" class="sidebar-item" style="width:100%; background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:16px;"><i data-lucide="log-out"></i> Déconnexion</button>` : 
                 `<p style="font-size:10px; opacity:0.3; text-align:center;">v2.0 Beta</p>`
               }
             </div>
           </aside>
-          <div class="sidebar-overlay" id="sidebar-overlay"></div>
+          <div class="sidebar-overlay" id="sidebar-overlay" style="z-index: 4999 !important;"></div>
           
-          <header class="mobile-header">
+          <header class="mobile-header" style="z-index: 4000 !important;">
             <button class="nav-toggle" id="nav-toggle"><i data-lucide="menu"></i></button>
             <a href="index.html" style="margin-left:15px; font-weight:800; font-size:14px; text-decoration:none; color:white;">SCOUT<span class="text-gold-gradient">.COACH</span></a>
           </header>
         `;
+
+        // Clean up any existing sidebar to avoid duplicates
+        const existingSidebar = document.getElementById('sidebar');
+        if (existingSidebar) existingSidebar.remove();
+        const existingOverlay = document.getElementById('sidebar-overlay');
+        if (existingOverlay) existingOverlay.remove();
 
         document.body.insertAdjacentHTML('afterbegin', sidebarHtml);
         if (window.lucide) window.lucide.createIcons();

@@ -27,8 +27,11 @@ export const logout = async () => {
  * Pour l'instant, on utilise une liste blanche d'emails.
  */
 export const isAdmin = (email) => {
-    const admins = ['coach@scout.com', 'admin@scout-coach.com']; 
-    return admins.includes(email);
+    if (!email) return false;
+    const adminEmail = email.toLowerCase();
+    const admins = ['coach@scout.com', 'admin@scout-coach.com', 'admin@admin.com']; 
+    console.log("Checking Admin for:", adminEmail);
+    return admins.includes(adminEmail);
 };
 
 // Legacy support (to be removed once fully migrated)
