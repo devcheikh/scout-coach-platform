@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const templateParams = {
                 coach_name: coachName,
                 agent_email: agentEmail,
-                date: new Date().toLocaleString('fr-FR')
+                date: new Date().toLocaleString('fr-FR'),
+                admin_url: `${window.location.origin}/admin`
             };
             emailjs.send("service_h6a3nff", "template_fl0xlqq", templateParams)
                 .then(() => console.log("✅ [EmailJS] Notification envoyée !"))
